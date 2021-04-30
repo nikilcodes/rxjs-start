@@ -39,7 +39,7 @@ categorySelectedAction$ = this.categorySelectedSubject.asObservable();
 
   products$ = combineLatest([
     this.productService.productsWithCategory$,
-    this.categorySelectedAction$.pipe(startWith(0))
+    this.categorySelectedAction$
   ]).pipe(map(([products,selectedCategoryId])=>{
       return products.filter(product =>{
         return selectedCategoryId ? product.categoryId === selectedCategoryId : true
@@ -68,11 +68,12 @@ categorySelectedAction$ = this.categorySelectedSubject.asObservable();
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+   // this.sub.unsubscribe();
   }
 
   onAdd(): void {
     console.log('Not yet implemented');
+    this.productService.addProduct();
   }
 
   onSelected(categoryId: string): void {
